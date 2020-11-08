@@ -1,8 +1,24 @@
 
+<input type="number" step="0.01" [(ngModel)]="inputValue" #ctrl="ngModel" required>
+
 <ngx-select-dropdown 
   (change)="currencyInChanged($event)" 
   [multiple]="false" 
   [(ngModel)]="currencyIn" 
   [options]="currencyOptions"
-  [config]='currencyInConfig'>
+  [config]='currencyDropdownConfig'>
 </ngx-select-dropdown>
+
+
+<ngx-select-dropdown 
+  (change)="currencyOutChanged($event)" 
+  [multiple]="false" 
+  [(ngModel)]="currencyOut" 
+  [options]="currencyOptions"
+  [config]='currencyDropdownConfig'>
+</ngx-select-dropdown>
+
+<button (click)="convert()">Convert</button>
+
+
+{{outputValue}}

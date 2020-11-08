@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LatestOpenExchangeRatesResponse } from '../_models/latestOpenExchangeRatesResponse.model';
 
@@ -13,8 +13,13 @@ export class ConversionService {
 
   constructor(private http: HttpClient) { }
 
-  public getValueInUSD(currency: string) : Observable<LatestOpenExchangeRatesResponse>{
-    return this.http.get<LatestOpenExchangeRatesResponse>(`${this.baseUrl}/latest.json?symbols=${currency}&app_id=${this.appId}`)
+  public getValueInUSD(currencyIn: string, currencyOut: string) : Observable<LatestOpenExchangeRatesResponse>{
+    
+    let parameters = new HttpParams();
+    parameters.append('app_id', this.appId);
+    parameters.append('symbols', currencyIn + ',' + currencyOut);
+
+    return this.http.get<LatestOpenExchangeRatesResponse>(`${this.baseUrl}/latest.json`, {params: {app_id: this.appId, symbols: currencyIn + ',' + currencyOut}});
   }
 
 }
