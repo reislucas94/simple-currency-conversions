@@ -1,0 +1,8 @@
+
+<ngx-select-dropdown 
+  (change)="currencyInChanged($event)" 
+  [multiple]="false" 
+  [(ngModel)]="currencyIn" 
+  [options]="currencyOptions"
+  [config]='currencyInConfig'>
+</ngx-select-dropdown>
