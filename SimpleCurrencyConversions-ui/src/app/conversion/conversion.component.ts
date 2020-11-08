@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyDropdown } from 'app/models/currencyDropdown.model';
+import { CurrencyDropdown } from '../_models/currencyDropdown.model';
 
 @Component({
   selector: 'app-conversion',
