@@ -64,24 +64,18 @@ export class ConversionComponent implements OnInit {
   }
 
   convert() {
-    this.conversionService.getCurrencyRatesInUSD(this.currencyIn.value, this.currencyOut.value).subscribe(
+    let conversionRecord = { 
+      inputValue: this.inputValue, 
+      inputCurrency: this.currencyIn.value, 
+      outputCurrency: this.currencyOut.value}
+
+    this.conversionService.convert(conversionRecord).subscribe(
       data => {
-        let result = data.rates;
-        let inCurrencyValueUSD = result[this.currencyIn.value];
-        let outCurrencyValueUSD = result[this.currencyOut.value];
-        
-        this.outputValue = parseFloat((this.inputValue/inCurrencyValueUSD*outCurrencyValueUSD).toFixed(2));
+        if(data) {
+          this.outputValue = Number(data);
+        }
 
-        let conversionRecord = { 
-          inputValue: this.inputValue, 
-          inputCurrency: this.currencyIn.value, 
-          outputCurrency: this.currencyOut.value, 
-          outputValue: this.outputValue}
-
-        this.conversionService.create(conversionRecord).subscribe(created => {
-          this.loadHistory();
-        });
-      }
-    )
+        this.loadHistory();
+      });
   }
 }
