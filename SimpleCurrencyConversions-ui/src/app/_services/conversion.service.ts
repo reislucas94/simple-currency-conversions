@@ -13,13 +13,11 @@ export class ConversionService {
 
   constructor(private http: HttpClient) { }
 
-  public getValueInUSD(currencyIn: string, currencyOut: string) : Observable<LatestOpenExchangeRatesResponse>{
-    
-    let parameters = new HttpParams();
-    parameters.append('app_id', this.appId);
-    parameters.append('symbols', currencyIn + ',' + currencyOut);
-
-    return this.http.get<LatestOpenExchangeRatesResponse>(`${this.baseUrl}/latest.json`, {params: {app_id: this.appId, symbols: currencyIn + ',' + currencyOut}});
+  public getCurrencyRatesInUSD(currencyIn: string, currencyOut: string) : Observable<LatestOpenExchangeRatesResponse>{
+    return this.http.get<LatestOpenExchangeRatesResponse>(`${this.baseUrl}/latest.json`, {
+        params: {
+          app_id: this.appId, symbols: currencyIn + ',' + currencyOut
+        }
+      });
   }
-
 }

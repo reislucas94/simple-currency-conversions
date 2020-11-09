@@ -47,7 +47,7 @@ export class ConversionComponent implements OnInit {
   }
 
   convert() {
-    this.conversionService.getValueInUSD(this.currencyIn.value, this.currencyOut.value).subscribe(
+    this.conversionService.getCurrencyRatesInUSD(this.currencyIn.value, this.currencyOut.value).subscribe(
       data => {
         if(data) {
           console.log(data);
