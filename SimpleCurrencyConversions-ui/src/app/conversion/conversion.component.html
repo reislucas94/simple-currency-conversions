@@ -41,15 +41,34 @@
       </div>
       
       <button class="btn btn-primary mb-3" (click)="convert()">Convert</button>
-      
+
     </div>
   </div>
 
-
-
-<div class="row">
-  {{outputValue}}
+<div class="row" *ngIf="outputValue">
+  <h3>Result: '{{inputValue}} {{currencyIn.value}}' is equivalent to '{{outputValue}} {{currencyOut.value}}' </h3> 
 </div>
 </div>
 
-<app-history-table></app-history-table>
+<br>
+<br>
+<br>
+<br>
+
+<div>
+  <h3>
+    Conversion History
+  </h3>
+  <ngx-datatable
+    class="material"
+    [rows]="conversions"
+    [loadingIndicator]="loadingIndicator"
+    [columns]="columns"
+    [columnMode]="'force'"
+    [sortType]="'multi'" 
+    [headerHeight]="50"
+    [footerHeight]="50"
+    rowHeight="auto"
+  >
+  </ngx-datatable>
+</div>

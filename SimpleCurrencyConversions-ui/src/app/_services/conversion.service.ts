@@ -11,7 +11,6 @@ export class ConversionService {
 
   openExchangeRatesBaseUrl = 'https://openexchangerates.org/api';
   appId = '803b49d404bb4dc9baf6091b9b97de8a';
-
   backendBaseUrl = 'http://localhost:5000/api/Conversion';
 
   constructor(private http: HttpClient) { }
@@ -28,7 +27,7 @@ export class ConversionService {
     return this.http.get<Array<CurrencyConversion>>(`${this.backendBaseUrl}/last10`);
   }
 
-  public create(conversion: CurrencyConversion) {
-    return this.http.put('http://localhost:5000/api/Conversion', { conversion });
+  public create(conversion) {
+    return this.http.post(this.backendBaseUrl, conversion);
   }
 }

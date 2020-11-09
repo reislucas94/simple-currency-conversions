@@ -35,8 +35,8 @@ namespace SimpleCurrencyConversions.API.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(ConversionViewModel conversion)
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] ConversionViewModel conversion)
         {
             try
             {

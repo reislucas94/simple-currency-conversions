@@ -5,14 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ConversionComponent } from './conversion/conversion.component';
-import { HistoryTableComponent } from './conversion/history-table/history-table.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConversionComponent,
-    HistoryTableComponent
+    ConversionComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +20,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     SelectDropDownModule,
     NgxDatatableModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

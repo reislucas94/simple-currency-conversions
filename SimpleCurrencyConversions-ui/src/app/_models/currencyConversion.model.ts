@@ -3,6 +3,6 @@ export class CurrencyConversion{
     inputValue: number;
     inputCurrency: string;
     outputCurrency: string;
-    outputValue: string;
+    outputValue: number;
     convertedAt: string;
 }

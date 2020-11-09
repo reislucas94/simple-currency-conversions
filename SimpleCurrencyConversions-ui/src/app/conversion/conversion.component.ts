@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CurrencyConversion } from '../_models/currencyConversion.model';
 import { CurrencyDropdown } from '../_models/currencyDropdown.model';
@@ -17,7 +18,21 @@ export class ConversionComponent implements OnInit {
   public inputValue: number;
   public outputValue: number;
 
-  constructor(private conversionService: ConversionService) { }
+  conversions = [];
+  loadingIndicator = true;
+  columns = [];
+
+  constructor(public conversionService: ConversionService, public datePipe: DatePipe) {
+    this.columns = [
+      { name: 'InputValue', sortable: true }, 
+      { name: 'InputCurrency', sortable: true }, 
+      { name: 'OutputCurrency', sortable: true} , 
+      { name: 'OutputValue', sortable: true }, 
+      { name: 'ConvertedAt', sortable: true}
+    ];
+
+    this.loadHistory();
+  }
 
   ngOnInit() {
     this.currencyOptions = [
@@ -39,16 +54,33 @@ export class ConversionComponent implements OnInit {
     };
   }
 
+  private loadHistory() {
+    this.conversionService.getLast10Conversions().subscribe(data=>{
+      this.conversions = data;
+      this.conversions.forEach(x => {
+        x.convertedAt = this.datePipe.transform(x.convertedAt, 'dd/MM/yyyy hh:mm:ss');
+      })
+    })
+  }
+
   convert() {
     this.conversionService.getCurrencyRatesInUSD(this.currencyIn.value, this.currencyOut.value).subscribe(
       data => {
-        if(data) {
-          let result = data.rates;
-          let inCurrencyValueUSD = result[this.currencyIn.value];
-          let outCurrencyValueUSD = result[this.currencyOut.value];
-          
-          this.outputValue = this.inputValue/inCurrencyValueUSD*outCurrencyValueUSD;
-        }
+        let result = data.rates;
+        let inCurrencyValueUSD = result[this.currencyIn.value];
+        let outCurrencyValueUSD = result[this.currencyOut.value];
+        
+        this.outputValue = parseFloat((this.inputValue/inCurrencyValueUSD*outCurrencyValueUSD).toFixed(2));
+
+        let conversionRecord = { 
+          inputValue: this.inputValue, 
+          inputCurrency: this.currencyIn.value, 
+          outputCurrency: this.currencyOut.value, 
+          outputValue: this.outputValue}
+
+        this.conversionService.create(conversionRecord).subscribe(created => {
+          this.loadHistory();
+        });
       }
     )
   }
