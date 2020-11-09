@@ -8,13 +8,20 @@ import { LatestOpenExchangeRatesResponse } from '../_models/latestOpenExchangeRa
 })
 export class ConversionService {
 
-  baseUrl = 'https://openexchangerates.org/api';
+  openExchangeRatesBaseUrl = 'https://openexchangerates.org/api';
   appId = '803b49d404bb4dc9baf6091b9b97de8a';
+
+  backendBaseUrl = 'http://';
 
   constructor(private http: HttpClient) { }
 
+  public getLast10Conversions() {
+
+  }
+
+
   public getCurrencyRatesInUSD(currencyIn: string, currencyOut: string) : Observable<LatestOpenExchangeRatesResponse>{
-    return this.http.get<LatestOpenExchangeRatesResponse>(`${this.baseUrl}/latest.json`, {
+    return this.http.get<LatestOpenExchangeRatesResponse>(`${this.openExchangeRatesBaseUrl}/latest.json`, {
         params: {
           app_id: this.appId, symbols: currencyIn + ',' + currencyOut
         }

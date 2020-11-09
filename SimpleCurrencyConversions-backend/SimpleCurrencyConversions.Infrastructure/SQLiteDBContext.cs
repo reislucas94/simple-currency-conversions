@@ -8,8 +8,8 @@ namespace SimpleCurrencyConversions.Infrastructure
 {
     public class SQLiteDBContext : DbContext
     {
-        public DbSet<CurrencyConversion> Conversions { get; set; }
+        public DbSet<CurrencyConversion> CurrencyConversions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=conversions.db");
+            => options.UseSqlite("Data Source=currencyConversions.db");
     }
 }

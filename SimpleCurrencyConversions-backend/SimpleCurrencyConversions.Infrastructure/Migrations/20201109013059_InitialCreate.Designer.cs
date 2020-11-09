@@ -9,7 +9,7 @@ using SimpleCurrencyConversions.Infrastructure;
 namespace SimpleCurrencyConversions.Infrastructure.Migrations
 {
     [DbContext(typeof(SQLiteDBContext))]
-    [Migration("20201109002425_InitialCreate")]
+    [Migration("20201109013059_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,12 +36,12 @@ namespace SimpleCurrencyConversions.Infrastructure.Migrations
                     b.Property<string>("OutputCurrency")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OutputValue")
+                    b.Property<decimal>("OutputValue")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Conversions");
+                    b.ToTable("CurrencyConversions");
                 });
 #pragma warning restore 612, 618
         }

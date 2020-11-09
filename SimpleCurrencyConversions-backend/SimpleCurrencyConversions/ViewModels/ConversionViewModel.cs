@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace SimpleCurrencyConversions.API.ViewModels
 {
-    public class ConversionView
+    public class ConversionViewModel
     {
         public decimal InputValue { get; set; }
         public string InputCurrency { get; set; }
         public string OutputCurrency { get; set; }
-        public string OutputValue { get; set; }
+        public decimal OutputValue { get; set; }
     }
 }

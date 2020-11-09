@@ -8,26 +8,26 @@ namespace SimpleCurrencyConversions.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Conversions",
+                name: "CurrencyConversions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     InputValue = table.Column<decimal>(nullable: false),
                     InputCurrency = table.Column<string>(nullable: true),
                     OutputCurrency = table.Column<string>(nullable: true),
-                    OutputValue = table.Column<string>(nullable: false),
+                    OutputValue = table.Column<decimal>(nullable: false),
                     ConvertedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Conversions", x => x.Id);
+                    table.PrimaryKey("PK_CurrencyConversions", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Conversions");
+                name: "CurrencyConversions");
         }
     }
 }

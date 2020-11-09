@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimpleCurrencyConversions.API.ViewModels;
 using SimpleCurrencyConversions.Domain;
 using SimpleCurrencyConversions.Infrastructure;
@@ -16,13 +18,13 @@ namespace SimpleCurrencyConversions.API.Controllers
         public ConversionController(){}
 
         [HttpGet("last10")]
-        public IActionResult GetLast10()
+        public async Task<IActionResult> GetLast10()
         {
             try
             {
                 using (var db = new SQLiteDBContext())
                 {
-                    var results = db.Conversions.OrderByDescending(x => x.ConvertedAt).Take(10);
+                    var results = await db.CurrencyConversions.OrderByDescending(x => x.ConvertedAt).Take(10).ToListAsync();
 
                     return Ok(results);
                 }
@@ -40,7 +42,7 @@ namespace SimpleCurrencyConversions.API.Controllers
             {
                 using (var db = new SQLiteDBContext())
                 {
-                    var results = await db.Conversions.AddAsync(new CurrencyConversion
+                    await db.CurrencyConversions.AddAsync(new CurrencyConversion
                     {
                         Id = Guid.NewGuid(),
                         InputValue = conversion.InputValue,
@@ -52,7 +54,7 @@ namespace SimpleCurrencyConversions.API.Controllers
 
                     if (await db.SaveChangesAsync() > 0)
                     {
-                        return Ok(results);
+                        return Ok();
                     };
                 }
 
