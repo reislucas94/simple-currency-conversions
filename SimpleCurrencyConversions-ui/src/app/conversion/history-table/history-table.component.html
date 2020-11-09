@@ -1,0 +1,17 @@
+<div>
+    <h3>
+      Conversion History
+    </h3>
+    <ngx-datatable
+      class="material"
+      [rows]="conversions"
+      [loadingIndicator]="loadingIndicator"
+      [columns]="columns"
+      [columnMode]="'force'"
+      [sortType]="'multi'" 
+      [headerHeight]="50"
+      [footerHeight]="50"
+      rowHeight="auto"
+    >
+    </ngx-datatable>
+  </div>

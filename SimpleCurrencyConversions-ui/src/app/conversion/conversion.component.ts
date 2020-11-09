@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrencyConversion } from '../_models/currencyConversion.model';
 import { CurrencyDropdown } from '../_models/currencyDropdown.model';
 import { ConversionService } from '../_services/conversion.service';
 
@@ -38,19 +39,10 @@ export class ConversionComponent implements OnInit {
     };
   }
 
-  public currencyInChanged(currencyIn) {
-    console.log(currencyIn);
-  }
-
-  public currencyOutChanged(currencyOut) {
-    console.log(currencyOut);
-  }
-
   convert() {
     this.conversionService.getCurrencyRatesInUSD(this.currencyIn.value, this.currencyOut.value).subscribe(
       data => {
         if(data) {
-          console.log(data);
           let result = data.rates;
           let inCurrencyValueUSD = result[this.currencyIn.value];
           let outCurrencyValueUSD = result[this.currencyOut.value];

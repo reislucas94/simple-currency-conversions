@@ -28,6 +28,16 @@ namespace SimpleCurrencyConversions
             services.AddControllers();
 
             services.AddSwaggerGen();
+
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            services.AddCors(options => {
+                options.AddPolicy("mypolicy", builder => builder
+                 .WithOrigins("http://localhost:4200")
+                 .SetIsOriginAllowed((host) => true)
+                 .AllowAnyMethod()
+                 .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,9 +48,11 @@ namespace SimpleCurrencyConversions
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseMvc();
 
             app.UseAuthorization();
 
@@ -57,6 +69,9 @@ namespace SimpleCurrencyConversions
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "The Conversion API V1");
             });
+
+
+
         }
     }
 }

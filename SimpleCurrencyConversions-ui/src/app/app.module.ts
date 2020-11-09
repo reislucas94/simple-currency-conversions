@@ -1,23 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ConversionComponent } from './conversion/conversion.component';
+import { HistoryTableComponent } from './conversion/history-table/history-table.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConversionComponent
+    ConversionComponent,
+    HistoryTableComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    SelectDropDownModule
+    SelectDropDownModule,
+    NgxDatatableModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
